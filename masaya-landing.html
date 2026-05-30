@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masaya Tezuka — Future Designer & Design Strategist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink: #0a0a0a;
+    --paper: #f5f3ee;
+    --paper-2: #ebe8e0;
+    --muted: #6b6b6b;
+    --accent: #ff3b1f;
+    --line: rgba(10,10,10,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.4;
+  }
+
+  .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.5rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    mix-blend-mode: difference;
+    color: #fff;
+  }
+  nav .logo {
+    font-weight: 800; font-size: 0.95rem; letter-spacing: -0.01em;
+    text-decoration: none; color: inherit;
+  }
+  nav .logo span { color: var(--accent); }
+  nav ul { display: flex; gap: 2rem; list-style: none; }
+  nav a {
+    color: inherit; text-decoration: none; font-size: 0.85rem; font-weight: 500;
+    position: relative; padding: 0.3rem 0;
+  }
+  nav a:not(.cta)::after {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px;
+    background: currentColor; transition: width 0.3s ease;
+  }
+  nav a:not(.cta):hover::after { width: 100%; }
+  nav .cta {
+    border: 1px solid currentColor; padding: 0.5rem 1rem; border-radius: 100px;
+    font-size: 0.78rem; transition: all 0.3s ease;
+  }
+  nav .cta:hover { background: #fff; color: #000; mix-blend-mode: normal; }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    padding: 8rem 2.5rem 4rem;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative;
+  }
+  .hero-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 2rem; flex-wrap: wrap;
+  }
+  .hero-meta { display: flex; gap: 3rem; flex-wrap: wrap; }
+  .hero-meta div { max-width: 220px; }
+  .hero-meta .label { color: var(--muted); margin-bottom: 0.5rem; }
+  .hero-meta p { font-size: 0.95rem; font-weight: 400; }
+
+  .hero h1 {
+    font-size: clamp(3.5rem, 11vw, 11rem);
+    font-weight: 800;
+    line-height: 0.88;
+    letter-spacing: -0.045em;
+    margin-top: auto;
+  }
+  .hero h1 .it { font-style: italic; font-weight: 300; }
+  .hero h1 .dot { color: var(--accent); }
+
+  .hero-bottom {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 2rem; margin-top: 3rem; flex-wrap: wrap;
+  }
+  .scroll-cue {
+    display: flex; align-items: center; gap: 0.6rem;
+    color: var(--muted);
+  }
+  .scroll-cue .arrow {
+    width: 28px; height: 1px; background: var(--ink); position: relative;
+    animation: arrow 2s ease-in-out infinite;
+  }
+  .scroll-cue .arrow::after {
+    content: ''; position: absolute; right: 0; top: -3px;
+    width: 8px; height: 8px;
+    border-right: 1px solid var(--ink); border-top: 1px solid var(--ink);
+    transform: rotate(45deg);
+  }
+  @keyframes arrow {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(8px); }
+  }
+
+  .available {
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .available .pulse {
+    width: 8px; height: 8px; border-radius: 50%; background: #2ecc71;
+    box-shadow: 0 0 0 0 rgba(46,204,113,0.6);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(46,204,113,0.6); }
+    70% { box-shadow: 0 0 0 12px rgba(46,204,113,0); }
+    100% { box-shadow: 0 0 0 0 rgba(46,204,113,0); }
+  }
+
+  /* ===== MARQUEE ===== */
+  .marquee {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 1.5rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-track {
+    display: inline-block;
+    animation: marquee 35s linear infinite;
+  }
+  .marquee span {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    padding: 0 2rem;
+  }
+  .marquee .dot {
+    color: var(--accent);
+    display: inline-block;
+    transform: translateY(-0.1em);
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ===== STUDIO ===== */
+  .studio {
+    padding: 8rem 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .studio .label-col .mono { color: var(--muted); margin-bottom: 1rem; display: block; }
+  .studio .label-col h2 {
+    font-size: clamp(2rem, 3vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1; letter-spacing: -0.03em;
+  }
+  .studio .body-col p {
+    font-size: clamp(1.2rem, 1.8vw, 1.7rem);
+    font-weight: 400; line-height: 1.35; letter-spacing: -0.015em;
+    margin-bottom: 1.5rem;
+  }
+  .studio .body-col p:last-child { color: var(--muted); font-size: 1.05rem; font-weight: 400; line-height: 1.55; }
+
+  /* ===== PROJECTS ===== */
+  .projects-header {
+    padding: 5rem 2.5rem 3rem;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 2rem; flex-wrap: wrap;
+  }
+  .projects-header h2 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 800; letter-spacing: -0.04em; line-height: 0.95;
+  }
+  .projects-header .note { color: var(--muted); font-size: 0.85rem; max-width: 280px; }
+
+  .projects {
+    padding: 0 2.5rem 5rem;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2rem 1.5rem;
+  }
+  .project { position: relative; cursor: pointer; }
+  .project .cover {
+    position: relative; overflow: hidden; background: var(--paper-2);
+    aspect-ratio: 4/3;
+  }
+  .project .cover img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+  .project:hover .cover img { transform: scale(1.04); }
+  .project .num {
+    position: absolute; top: 1rem; left: 1rem; z-index: 2;
+    color: #fff; mix-blend-mode: difference;
+  }
+  .project .meta {
+    margin-top: 1rem;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 1rem;
+  }
+  .project .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .project .tags span {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    padding: 0.25rem 0.6rem; border: 1px solid var(--line); border-radius: 100px;
+  }
+  .project .year { color: var(--muted); font-size: 0.75rem; }
+  .project h3 {
+    margin-top: 0.6rem;
+    font-size: clamp(1.05rem, 1.3vw, 1.35rem);
+    font-weight: 600; letter-spacing: -0.02em; line-height: 1.2;
+  }
+  .project p {
+    margin-top: 0.4rem; color: var(--muted); font-size: 0.88rem; line-height: 1.5;
+  }
+  .project .credit {
+    margin-top: 0.6rem; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+    color: var(--muted); letter-spacing: 0.04em;
+  }
+
+  /* Layout - varied like blit */
+  .project.span-7 { grid-column: span 7; }
+  .project.span-5 { grid-column: span 5; }
+  .project.span-6 { grid-column: span 6; }
+  .project.span-8 { grid-column: span 8; }
+  .project.span-4 { grid-column: span 4; }
+  .project.span-12 { grid-column: span 12; }
+  .project.span-7 .cover, .project.span-8 .cover { aspect-ratio: 16/10; }
+  .project.span-12 .cover { aspect-ratio: 21/9; }
+
+  /* ===== CAPABILITIES ===== */
+  .capabilities {
+    background: var(--ink); color: var(--paper);
+    padding: 7rem 2.5rem;
+  }
+  .capabilities .top {
+    display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem;
+    margin-bottom: 4rem;
+  }
+  .capabilities .top .mono { color: rgba(245,243,238,0.5); display: block; margin-bottom: 1rem; }
+  .capabilities .top h2 {
+    font-size: clamp(2rem, 3vw, 2.6rem);
+    font-weight: 700; letter-spacing: -0.03em; line-height: 1;
+  }
+  .capabilities .top p {
+    font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+    font-weight: 400; line-height: 1.4; letter-spacing: -0.01em;
+    color: rgba(245,243,238,0.85);
+  }
+  .cap-list {
+    border-top: 1px solid rgba(245,243,238,0.15);
+  }
+  .cap-item {
+    border-bottom: 1px solid rgba(245,243,238,0.15);
+    padding: 1.8rem 0;
+    display: grid; grid-template-columns: 80px 1fr 2fr 60px;
+    gap: 2rem; align-items: center;
+    cursor: pointer; transition: padding 0.4s ease;
+  }
+  .cap-item:hover { padding-left: 1.5rem; }
+  .cap-item .num { color: rgba(245,243,238,0.5); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+  .cap-item h3 {
+    font-size: clamp(1.4rem, 2.4vw, 2.2rem);
+    font-weight: 600; letter-spacing: -0.025em;
+  }
+  .cap-item p { color: rgba(245,243,238,0.6); font-size: 0.95rem; line-height: 1.5; }
+  .cap-item .arrow-cell {
+    text-align: right; opacity: 0.4; transition: all 0.4s ease;
+  }
+  .cap-item:hover .arrow-cell { opacity: 1; transform: translateX(8px); }
+
+  /* ===== RECOGNITION ===== */
+  .recognition {
+    padding: 7rem 2.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .recognition .mono { color: var(--muted); margin-bottom: 2rem; display: block; }
+  .recognition h2 {
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 800; letter-spacing: -0.04em; line-height: 0.95;
+    margin-bottom: 4rem; max-width: 14ch;
+  }
+  .recognition h2 em { font-weight: 300; font-style: italic; }
+  .rec-grid {
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem;
+  }
+  .rec-item { border-top: 1px solid var(--ink); padding-top: 1.2rem; }
+  .rec-item .big {
+    font-size: clamp(2.2rem, 3.5vw, 3rem);
+    font-weight: 700; letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.8rem;
+  }
+  .rec-item p { font-size: 0.88rem; color: var(--muted); line-height: 1.5; }
+
+  /* ===== OTHER WORKS ===== */
+  .other {
+    padding: 5rem 0 5rem 2.5rem;
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .other-header { margin-bottom: 2.5rem; padding-right: 2.5rem; }
+  .other-header .mono { color: var(--muted); margin-bottom: 1rem; display: block; }
+  .other-header h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700; letter-spacing: -0.03em;
+  }
+  .other-scroll {
+    display: flex; gap: 1.5rem;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    padding-right: 2.5rem; padding-bottom: 1rem;
+    scrollbar-width: thin;
+  }
+  .other-scroll::-webkit-scrollbar { height: 4px; }
+  .other-scroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+  .other-card {
+    flex: 0 0 380px; scroll-snap-align: start;
+  }
+  .other-card .img {
+    aspect-ratio: 4/3; background: var(--paper-2); overflow: hidden;
+  }
+  .other-card .img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+  .other-card:hover .img img { transform: scale(1.05); }
+  .other-card .mono { color: var(--muted); margin-top: 1rem; display: block; }
+  .other-card h4 { margin-top: 0.6rem; font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.3; }
+  .other-card p { margin-top: 0.5rem; color: var(--muted); font-size: 0.85rem; line-height: 1.5; }
+
+  /* ===== CONTACT ===== */
+  .contact {
+    padding: 8rem 2.5rem;
+    background: var(--ink); color: var(--paper);
+    position: relative; overflow: hidden;
+  }
+  .contact .mono { color: rgba(245,243,238,0.5); display: block; margin-bottom: 2rem; }
+  .contact h2 {
+    font-size: clamp(4rem, 14vw, 14rem);
+    font-weight: 800; letter-spacing: -0.05em; line-height: 0.85;
+    margin-bottom: 3rem;
+  }
+  .contact h2 .it { font-style: italic; font-weight: 300; }
+  .contact h2 .dot { color: var(--accent); }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem;
+    border-top: 1px solid rgba(245,243,238,0.2);
+    padding-top: 2rem;
+  }
+  .contact-block .label { color: rgba(245,243,238,0.5); font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.6rem; }
+  .contact-block a, .contact-block p {
+    color: var(--paper); font-size: 1.1rem; font-weight: 500; text-decoration: none;
+    letter-spacing: -0.01em; display: inline-block;
+    border-bottom: 1px solid transparent; transition: border-color 0.3s ease;
+  }
+  .contact-block a:hover { border-color: var(--paper); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    padding: 2rem 2.5rem; display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 1rem;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+    color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  footer .links { display: flex; gap: 1.5rem; }
+  footer a { color: inherit; text-decoration: none; }
+  footer a:hover { color: var(--ink); }
+
+  /* Reveal animations */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.25rem; }
+    nav ul { gap: 1rem; }
+    nav ul li:nth-child(2) { display: none; }
+    .hero { padding: 6rem 1.25rem 3rem; }
+    .hero-meta { gap: 1.5rem; }
+    .studio { grid-template-columns: 1fr; padding: 5rem 1.25rem; gap: 2rem; }
+    .projects-header { padding: 4rem 1.25rem 2rem; }
+    .projects { padding: 0 1.25rem 4rem; gap: 3rem 1rem; }
+    .project.span-7, .project.span-5, .project.span-6, .project.span-8, .project.span-4 { grid-column: span 12; }
+    .capabilities { padding: 5rem 1.25rem; }
+    .capabilities .top { grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 2.5rem; }
+    .cap-item { grid-template-columns: 40px 1fr 40px; gap: 1rem; padding: 1.4rem 0; }
+    .cap-item p { display: none; }
+    .recognition { padding: 5rem 1.25rem; }
+    .rec-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .other { padding: 4rem 0 4rem 1.25rem; }
+    .other-card { flex: 0 0 280px; }
+    .contact { padding: 5rem 1.25rem; }
+    .contact-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    footer { padding: 1.5rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">MASAYA TEZUKA<span>.</span></a>
+  <ul>
+    <li><a href="#works">Works</a></li>
+    <li><a href="#studio">Studio</a></li>
+    <li><a href="#capabilities">Capabilities</a></li>
+    <li><a href="#contact" class="cta">Say Hi →</a></li>
+  </ul>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-top">
+    <div class="hero-meta">
+      <div>
+        <div class="mono label">Based</div>
+        <p>Tokyo · Chicago · Worldwide</p>
+      </div>
+      <div>
+        <div class="mono label">Practice</div>
+        <p>Design strategy, UX, research & future-casting since 2014.</p>
+      </div>
+    </div>
+    <div class="mono available"><span class="pulse"></span> Available for select 2026 engagements</div>
+  </div>
+
+  <h1>
+    Future<br>
+    <span class="it">designer</span> &amp;<br>
+    design strategist<span class="dot">.</span>
+  </h1>
+
+  <div class="hero-bottom">
+    <p style="max-width: 38ch; font-size: 1.05rem;">
+      Leading organizations toward organic growth through holistic understanding of the ecosystem — and transformative insights drawn from close observation of each organism.
+    </p>
+    <div class="scroll-cue mono">
+      <span>Scroll to explore</span>
+      <div class="arrow"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MARQUEE ===== -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Strategy</span><span class="dot">●</span>
+    <span>UX Research</span><span class="dot">●</span>
+    <span>Future-Casting</span><span class="dot">●</span>
+    <span>Service Design</span><span class="dot">●</span>
+    <span>System Thinking</span><span class="dot">●</span>
+    <span>Product Development</span><span class="dot">●</span>
+    <span>Strategy</span><span class="dot">●</span>
+    <span>UX Research</span><span class="dot">●</span>
+    <span>Future-Casting</span><span class="dot">●</span>
+    <span>Service Design</span><span class="dot">●</span>
+    <span>System Thinking</span><span class="dot">●</span>
+    <span>Product Development</span><span class="dot">●</span>
+  </div>
+</div>
+
+<!-- ===== STUDIO ===== -->
+<section class="studio reveal" id="studio">
+  <div class="label-col">
+    <span class="mono">[ 01 ] About</span>
+    <h2>A practice<br>shaped by<br>three continents.</h2>
+  </div>
+  <div class="body-col">
+    <p>Masaya has lived across three countries and worked alongside people from every corner of the world. From Tokyo to Chicago, a decade of leading and contributing to unprecedented experience design, strategy, and marketing work has produced a way of thinking that integrates diverse perspectives and disciplines into single, coherent moves.</p>
+    <p>The work brings cultural awareness, a sensitivity to small differences, and the high motivation to keep endeavoring — the qualities organizations need when the brief is ambiguous and the ecosystem is the actual problem.</p>
+    <p>"Just as an admirable chef is usually exposed to the best and unique ingredients and cuisine, it takes a unique and creative way of life to create creative innovations."</p>
+  </div>
+</section>
+
+<!-- ===== PROJECTS ===== -->
+<div class="projects-header reveal" id="works">
+  <h2>Featured<br>projects<span style="color: var(--accent);">.</span></h2>
+  <p class="note">Not all information is disclosed due to confidentiality. A selection from 2014–2024.</p>
+</div>
+
+<section class="projects">
+  <article class="project span-7 reveal">
+    <div class="cover">
+      <span class="num mono">01 / 06</span>
+      <img src="https://static.wixstatic.com/media/733df4_f59df84375d3463f99bc0437d4991dca~mv2.jpg/v1/crop/x_27,y_0,w_1865,h_1280/fill/w_1200,h_800,al_c,q_85,enc_avif,quality_auto/card%20image%20finnnnnnnn_edited.jpg" alt="Future-casting project">
+    </div>
+    <div class="meta">
+      <div class="tags"><span>Design Strategy</span><span>UI · UX</span></div>
+      <span class="year">2023</span>
+    </div>
+    <h3>Future-casting tools for a 165-year-old insurance company</h3>
+    <p>Building and systemizing the strategic instruments that help an enterprise choose the resource investments required to realize value and innovation over the coming decades.</p>
+    <div class="credit">Confidential client · Lead Strategist</div>
+  </article>
+
+  <article class="project span-5 reveal">
+    <div class="cover">
+      <span class="num mono">02 / 06</span>
+      <img src="https://static.wixstatic.com/media/733df4_f8b33ee85dda478a88ef4bee744ef3e7~mv2.jpg/v1/fill/w_800,h_600,al_c,q_85,enc_avif,quality_auto/tom-blackout-LJp0F9Icjlc-unsplash.jpg" alt="Re-empowerment project">
+    </div>
+    <div class="meta">
+      <div class="tags"><span>UX</span><span>Interaction</span><span>Strategy</span></div>
+      <span class="year">Ongoing</span>
+    </div>
+    <h3>Designing for women re-entering society after incarceration</h3>
+    <p>An ongoing project to empower and re-fill self-confidence — so the experience of having choices is no longer something to be afraid of.</p>
+    <div class="credit">Coming soon</div>
+  </article>
+
+  <article class="project span-5 reveal">
+    <div class="cover">
+      <span class="num mono">03 / 06</span>
+      <img src="https://static.wixstatic.com/media/733df4_fe2d5a132b7e4814a284e0b7ea2ba482~mv2.jpg/v1/crop/x_36,y_0,w_2458,h_1687/fill/w_900,h_620,al_c,q_85,enc_avif,quality_auto/2019_MIDTOWN_CHRISTMAS_007_edited_edited_edited.jpg" alt="Tokyo Midtown Christmas">
+    </div>
+    <div class="meta">
+      <div class="tags"><span>Experience Design</span><span>UX</span></div>
+      <span class="year">2019</span>
+    </div>
+    <h3>Tokyo Midtown — Christmas lighting that reached five million</h3>
+    <p>Designing the emotional change of city visitors through contextual and customer experience design. A Christmas show recreating astronomical phenomena at urban scale.</p>
+    <div class="credit">© Tokyo Midtown · Experience Lead</div>
+  </article>
+
+  <article class="project span-7 reveal">
+    <div class="cover">
+      <span class="num mono">04 / 06</span>
+      <img src="https://static.wixstatic.com/media/733df4_c602678c16224be8a77d980647c380d3~mv2.gif" alt="Blossom Lounge">
+    </div>
+    <div class="meta">
+      <div class="tags"><span>Service Design</span><span>Experience Design</span></div>
+      <span class="year">2018–2022</span>
+    </div>
+    <h3>Blossom Lounge — rethinking a stakeholder ecosystem for ripple effects</h3>
+    <p>A pop-up outdoor lounge service designed around value exchanges across stakeholders, delivering the best sales figures four years running.</p>
+    <div class="credit">Service Strategy & Design</div>
+  </article>
+
+  <article class="project span-6 reveal">
+    <div class="cover">
+      <span class="num mono">05 / 06</span>
+      <img src="https://static.wixstatic.com/media/733df4_9be68253e37d45a68722faffbc8816ef~mv2.jpg/v1/crop/x_19,y_19,w_409,h_291/fill/w_900,h_640,al_c,q_85,enc_avif,quality_auto/3IIT%20ID%20portfolio%20masaya%20tezuka%200211revised-26.jpg" alt="Panasonic product development">
+    </div>
+    <div class="meta">
+      <div class="tags"><span>Design Strategy</span><span>Marketing</span></div>
+      <span class="year">2014–2016</span>
+    </div>
+    <h3>Panasonic — developing under constraint, turning weakness into edge</h3>
+    <p>Innovating offerings through differentiation and the combination of unlikely variables. Product marketing and communications management across ten product categories.</p>
+    <div class="credit">© Panasonic</div>
+  </article>
+
+  <article class="project span-6 reveal">
+    <div class="cover">
+      <span class="num mono">06 / 06</span>
+      <img src="https://static.wixstatic.com/media/733df4_f06ddbcd58754baba19b8221712a1de5~mv2.jpg/v1/fill/w_900,h_640,al_c,q_85,enc_avif,quality_auto/%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB%E3%82%A2%E3%83%BC%E3%83%88%E5%BA%AD%E5%9C%92%EF%BC%B4%EF%BC%AFP%20revised.jpg" alt="Home Depot research">
+    </div>
+    <div class="meta">
+      <div class="tags"><span>Design Research</span><span>Synthesis</span></div>
+      <span class="year">2022</span>
+    </div>
+    <h3>Home Depot — people, context, and behavior as the starting point</h3>
+    <p>Problem-solving for the user experience of the world's largest home-improvement retailer. Unveiling latent problems and finding clues to solutions through field research.</p>
+    <div class="credit">UX Research Lead</div>
+  </article>
+</section>
+
+<!-- ===== CAPABILITIES ===== -->
+<section class="capabilities reveal" id="capabilities">
+  <div class="top">
+    <div>
+      <span class="mono">[ 02 ] Capabilities</span>
+      <h2>What I bring<br>to the table.</h2>
+    </div>
+    <p>Six overlapping practices, all in service of one thing: helping the organization see its ecosystem clearly enough to act on it.</p>
+  </div>
+
+  <div class="cap-list">
+    <div class="cap-item">
+      <span class="num">01</span>
+      <h3>Design Strategy & Future-Casting</h3>
+      <p>Mapping signals across decades to help leaders decide where to place long-term bets.</p>
+      <span class="arrow-cell">→</span>
+    </div>
+    <div class="cap-item">
+      <span class="num">02</span>
+      <h3>UX Design & System Thinking</h3>
+      <p>Designing experiences that hold up when the system around them changes.</p>
+      <span class="arrow-cell">→</span>
+    </div>
+    <div class="cap-item">
+      <span class="num">03</span>
+      <h3>Design Research & Synthesis</h3>
+      <p>Close observation of people, context, and behavior — translated into decisions.</p>
+      <span class="arrow-cell">→</span>
+    </div>
+    <div class="cap-item">
+      <span class="num">04</span>
+      <h3>Product Development</h3>
+      <p>Building products under real constraints, often converting weaknesses into advantages.</p>
+      <span class="arrow-cell">→</span>
+    </div>
+    <div class="cap-item">
+      <span class="num">05</span>
+      <h3>Service Design</h3>
+      <p>Redesigning stakeholder ecosystems so value exchanges produce ripple effects, not friction.</p>
+      <span class="arrow-cell">→</span>
+    </div>
+    <div class="cap-item">
+      <span class="num">06</span>
+      <h3>Prototypes & Graphics</h3>
+      <p>Making the idea visible early so the room can argue with something real, not a paragraph.</p>
+      <span class="arrow-cell">→</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RECOGNITION ===== -->
+<section class="recognition reveal">
+  <span class="mono">[ 03 ] Recognition</span>
+  <h2>Awards aside, what drives the work is the pursuit of <em>the unexpected</em>.</h2>
+
+  <div class="rec-grid">
+    <div class="rec-item">
+      <div class="big">Good Design<br>Award</div>
+      <p>For the seasonal installation reinterpreting Japanese sensitivity through light, mist, and the rock-garden tradition.</p>
+    </div>
+    <div class="rec-item">
+      <div class="big">5M+<br>visitors</div>
+      <p>Drawn to the Tokyo Midtown Christmas Lighting Show across its run.</p>
+    </div>
+    <div class="rec-item">
+      <div class="big">10×<br>ROI</div>
+      <p>Advertising equivalency value on the global art project marking a 10-year brand anniversary.</p>
+    </div>
+    <div class="rec-item">
+      <div class="big">20+<br>institutions</div>
+      <p>Collaborated with on a massive sculptural project bringing Anish Kapoor & Arata Isozaki's work to Tokyo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OTHER WORKS ===== -->
+<section class="other">
+  <div class="other-header reveal">
+    <span class="mono">[ 04 ] Other works</span>
+    <h2>Selected experiences, products & moments.</h2>
+  </div>
+  <div class="other-scroll">
+
+    <div class="other-card">
+      <div class="img">
+        <img src="https://static.wixstatic.com/media/733df4_af521c1df7d34e5399a308a81f3de61f~mv2.jpg/v1/crop/x_0,y_10,w_5640,h_3739/fill/w_760,h_570,al_c,q_85,enc_avif,quality_auto/20130921-Chair.jpg" alt="Global art project">
+      </div>
+      <span class="mono">Experience · Production</span>
+      <h4>Inflatable mobile concert hall with Isozaki & Kapoor</h4>
+      <p>Global project management for a massive sculptural artwork in Tokyo, aiding earthquake recovery through music and art on a 10-year brand anniversary.</p>
+    </div>
+
+    <div class="other-card">
+      <div class="img">
+        <img src="https://static.wixstatic.com/media/733df4_f06ddbcd58754baba19b8221712a1de5~mv2.jpg/v1/fill/w_760,h_570,al_c,q_85,enc_avif,quality_auto/%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB%E3%82%A2%E3%83%BC%E3%83%88%E5%BA%AD%E5%9C%92%EF%BC%B4%EF%BC%AFP%20revised.jpg" alt="Rock garden installation">
+      </div>
+      <span class="mono">Installation · Brand</span>
+      <h4>Light & mist garden — Good Design Award</h4>
+      <p>A new seasonal symbol inspired by traditional Japanese rock gardens, redesigning a town's holistic strategy around a single, coherent brand moment.</p>
+    </div>
+
+    <div class="other-card">
+      <div class="img" style="background: linear-gradient(135deg, #f5f3ee, #d6d2c5); display: flex; align-items: center; justify-content: center;">
+        <span style="font-size: 4rem; font-weight: 800; letter-spacing: -0.04em; color: var(--ink);">10</span>
+      </div>
+      <span class="mono">Product · Marketing</span>
+      <h4>Product marketing across 10 categories at Panasonic</h4>
+      <p>Product development, communication planning, and category management across ten distinct product lines.</p>
+    </div>
+
+    <div class="other-card">
+      <div class="img" style="background: var(--accent); display: flex; align-items: center; justify-content: center;">
+        <span style="font-size: 3rem; font-weight: 300; font-style: italic; color: var(--paper); letter-spacing: -0.03em;">prototypes</span>
+      </div>
+      <span class="mono">Prototypes · Graphics</span>
+      <h4>The lab — making it real, early</h4>
+      <p>Sketches, prototypes, and graphic experiments that exist to give the room something to argue with.</p>
+    </div>
+
+    <div class="other-card">
+      <div class="img" style="background: var(--ink); display: flex; align-items: center; justify-content: center;">
+        <span style="font-size: 2.4rem; font-weight: 700; color: var(--paper); letter-spacing: -0.03em; text-align: center; line-height: 1;">Lucerne<br>Festival</span>
+      </div>
+      <span class="mono">Music · Brand</span>
+      <h4>Lucerne Festival collaboration</h4>
+      <p>Contributing to one of the world's most significant classical music festivals — translating the brand's voice through visual and spatial experience.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact" id="contact">
+  <span class="mono">[ 05 ] Get in touch</span>
+  <h2>Say<br><span class="it">hi</span><span class="dot">.</span></h2>
+
+  <div class="contact-grid">
+    <div class="contact-block">
+      <div class="label">Email</div>
+      <a href="mailto:hello@masayatezuka.com">hello@masayatezuka.com</a>
+    </div>
+    <div class="contact-block">
+      <div class="label">Elsewhere</div>
+      <a href="https://www.linkedin.com/in/masayatezuka" target="_blank">LinkedIn</a><br>
+      <a href="#" target="_blank">Instagram</a>
+    </div>
+    <div class="contact-block">
+      <div class="label">Currently</div>
+      <p>Open to strategy engagements, advisory work, and select design partnerships starting Q3 2026.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 Masaya Tezuka — All rights reserved</div>
+  <div class="links">
+    <a href="#works">Works</a>
+    <a href="#studio">Studio</a>
+    <a href="#capabilities">Capabilities</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div>Tokyo / Chicago</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Project hover state for cursor (simple)
+  document.querySelectorAll('.project').forEach(p => {
+    p.addEventListener('mouseenter', () => p.style.willChange = 'transform');
+    p.addEventListener('mouseleave', () => p.style.willChange = 'auto');
+  });
+</script>
+
+</body>
+</html>
