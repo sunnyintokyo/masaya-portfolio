@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * { margin:0; padding:0; box-sizing:border-box; }
   :root {
     --ink: #0a0a0a; --paper: #f5f3ee; --paper-2: #ebe8e0;
     --muted: #6b6b6b; --accent: #ff3b1f; --line: rgba(10,10,10,0.12);
@@ -28,16 +28,12 @@
   nav .cta { border: 1px solid currentColor; padding: 0.5rem 1rem; border-radius: 100px; font-size: 0.78rem; }
 
   /* HERO */
-  .hero { min-height: 100vh; padding: 8rem 2.5rem 4rem; display: flex; flex-direction: column; justify-content: space-between; }
-  .hero-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; flex-wrap: wrap; }
-  .hero-meta { display: flex; gap: 3rem; flex-wrap: wrap; }
-  .hero-meta div { max-width: 260px; }
-  .hero-meta .label { color: var(--muted); margin-bottom: 0.5rem; }
-  .hero-meta p { font-size: 0.95rem; }
-  .hero h1 { font-size: clamp(3.5rem, 11vw, 11rem); font-weight: 800; line-height: 0.88; letter-spacing: -0.045em; margin-top: auto; }
+  .hero { min-height: auto; padding: 8rem 2.5rem 5rem; display: flex; flex-direction: column; gap: 3rem; }
+  .hero-top { display: flex; justify-content: flex-end; align-items: flex-start; }
+  .hero h1 { font-size: clamp(3.5rem, 11vw, 11rem); font-weight: 800; line-height: 0.88; letter-spacing: -0.045em; }
   .hero h1 .it { font-style: italic; font-weight: 300; }
   .hero h1 .dot { color: var(--accent); }
-  .hero-bottom { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; margin-top: 3rem; flex-wrap: wrap; }
+  .hero-bottom { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap; }
   .scroll-cue { display: flex; align-items: center; gap: 0.6rem; color: var(--muted); }
   .scroll-cue .arrow { width: 28px; height: 1px; background: var(--ink); position: relative; animation: arrow 2s ease-in-out infinite; }
   .scroll-cue .arrow::after { content: ''; position: absolute; right: 0; top: -3px; width: 8px; height: 8px; border-right: 1px solid var(--ink); border-top: 1px solid var(--ink); transform: rotate(45deg); }
@@ -62,22 +58,11 @@
 
   /* PROJECT CARD */
   .project { cursor: pointer; }
-  .project .cover {
-    position: relative; overflow: hidden; aspect-ratio: 4/3;
-    background: var(--paper-2);
-  }
-  /* Image sits on top of gradient, covers it when loaded */
-  .project .cover img {
-    position: absolute; top: 0; left: 0;
-    width: 100%; height: 100%; object-fit: cover;
-    z-index: 1;
-    transition: transform 0.8s cubic-bezier(0.16,1,0.3,1);
-  }
+  .project .cover { position: relative; overflow: hidden; aspect-ratio: 4/3; background: var(--paper-2); }
+  .project .cover img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; transition: transform 0.8s cubic-bezier(0.16,1,0.3,1); }
   .project:hover .cover img { transform: scale(1.04); }
-  /* Fallback text behind image */
-  .cover-fallback { position: absolute; bottom: 0; left: 0; width: 100%; padding: 1.5rem; z-index: 0; }
+  .cover-fallback { position: absolute; bottom: 0; left: 0; width: 100%; padding: 1.5rem; z-index: 0; display: flex; align-items: flex-end; height: 100%; }
   .cover-fallback span { font-size: clamp(0.9rem, 1.5vw, 1.2rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; color: #fff; }
-  /* Number always on top */
   .project .num { position: absolute; top: 1rem; left: 1rem; z-index: 2; color: #fff; mix-blend-mode: difference; }
   .project .meta { margin-top: 1rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
   .project .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
@@ -90,7 +75,9 @@
   .project.span-7 { grid-column: span 7; }
   .project.span-5 { grid-column: span 5; }
   .project.span-6 { grid-column: span 6; }
-  .project.span-7 .cover, .project.span-8 .cover { aspect-ratio: 16/10; }
+  .project.span-12 { grid-column: span 12; }
+  .project.span-7 .cover { aspect-ratio: 16/10; }
+  .project.span-12 .cover { aspect-ratio: 21/9; }
 
   /* CAPABILITIES */
   .capabilities { background: var(--ink); color: var(--paper); padding: 7rem 2.5rem; }
@@ -159,7 +146,8 @@
     .hero { padding: 6rem 1.25rem 3rem; }
     .projects-header { padding: 4rem 1.25rem 2rem; }
     .projects { padding: 0 1.25rem 4rem; gap: 3rem 1rem; }
-    .project.span-7, .project.span-5, .project.span-6 { grid-column: span 12; }
+    .project.span-7, .project.span-5, .project.span-6, .project.span-12 { grid-column: span 12; }
+    .project.span-12 .cover { aspect-ratio: 16/10; }
     .capabilities { padding: 5rem 1.25rem; }
     .capabilities .top { grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 2.5rem; }
     .cap-item { grid-template-columns: 40px 1fr 40px; gap: 1rem; }
@@ -189,16 +177,6 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-top">
-    <div class="hero-meta">
-      <div>
-        <div class="mono label">Based</div>
-        <p>Tokyo · Chicago · Worldwide</p>
-      </div>
-      <div>
-        <div class="mono label">Practice</div>
-        <p>Future Design, Design & Innovation Strategy, Experience Design</p>
-      </div>
-    </div>
     <div class="mono based-tag"><span class="pulse"></span> Currently based in Tokyo</div>
   </div>
 
@@ -232,129 +210,103 @@
     <span class="mono section-label">[ 01 ] Works</span>
     <h2>Featured<br>projects<span style="color:var(--accent)">.</span></h2>
   </div>
-  <p class="note">Not all information is disclosed due to confidentiality. A selection from 2014–2024.</p>
+  <p class="note">Not all information is disclosed due to confidentiality. A selection from 2014–2026.</p>
 </div>
 
 <section class="projects">
 
-  <!-- 01 Insurance -->
+  <!-- 01 Lunar Living Space Wellness -->
   <article class="project span-7 reveal">
-    <div class="cover" style="background:linear-gradient(135deg,#1a1a2e,#0f3460);">
+    <div class="cover" style="background:linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 40%, #2d2d5e 100%);">
       <span class="num mono">01 / 06</span>
-      <div class="cover-fallback"><span>Future-Casting Tools · Insurance</span></div>
+      <div class="cover-fallback"><span>Lunar Living · Wellness</span></div>
+    </div>
+    <div class="meta">
+      <div class="tags"><span>Design Fiction</span><span>SF Prototyping</span></div>
+      <span class="year">2026</span>
+    </div>
+    <h3>What does wellness mean for us on another planet?</h3>
+    <p>Deriving the essential functional requirements for human wellness in lunar living spaces — where every condition of life must be intentionally designed from scratch.</p>
+  </article>
+
+  <!-- 02 Climate Technology -->
+  <article class="project span-5 reveal">
+    <div class="cover" style="background:linear-gradient(135deg, #0a2e1f 0%, #0d4a3a 40%, #1a6b5a 100%);">
+      <span class="num mono">02 / 06</span>
+      <div class="cover-fallback"><span>Climate Technology · R&D</span></div>
+    </div>
+    <div class="meta">
+      <div class="tags"><span>Design Fiction</span><span>Speculative Design</span></div>
+      <span class="year">2025</span>
+    </div>
+    <h3>Finding opportunity in the climate crisis.</h3>
+    <p>Generating R&D themes and opportunity areas at the intersection of climate technology and human futures — for a super-general contractor reimagining its role in a warming world.</p>
+  </article>
+
+  <!-- 03 Immersive Town Experience -->
+  <article class="project span-5 reveal">
+    <div class="cover" style="background:linear-gradient(135deg,#0d1b2a,#233044);">
+      <span class="num mono">03 / 06</span>
+      <div class="cover-fallback"><span>Immersive Town · Experience Design</span></div>
       <img
-        src="https://static.wixstatic.com/media/733df4_f59df84375d3463f99bc0437d4991dca~mv2.jpg/v1/fill/w_1200,h_800,al_c,q_85,enc_avif,quality_auto/project1.jpg"
-        alt="Future-casting project"
+        src="https://static.wixstatic.com/media/733df4_fe2d5a132b7e4814a284e0b7ea2ba482~mv2.jpg/v1/crop/x_36,y_0,w_2458,h_1687/fill/w_900,h_620,al_c,q_85,enc_avif,quality_auto/midtown.jpg"
+        alt="Immersive Town Experience"
         onerror="this.style.display='none'"
         loading="lazy">
     </div>
     <div class="meta">
-      <div class="tags"><span>Design Strategy</span><span>UI · UX</span></div>
-      <span class="year">2023</span>
+      <div class="tags"><span>Experience Design</span></div>
+      <span class="year">2019</span>
     </div>
-    <h3>Future-casting tools for a 165-year-old insurance company</h3>
-    <p>Building and systemizing the strategic instruments that help an enterprise choose the resource investments required to realize value and innovation over the coming decades.</p>
-    <div class="credit">Confidential client · Lead Strategist</div>
+    <h3>Designing the emotional arc of a city.</h3>
+    <p>Transforming how five million urban visitors feel — not just what they see. A contextual experience design that turned a seasonal moment into an emotional memory.</p>
   </article>
 
-  <!-- 02 Women's empowerment -->
-  <article class="project span-5 reveal">
-    <div class="cover" style="background:linear-gradient(135deg,#2d1b33,#4a1942);">
-      <span class="num mono">02 / 06</span>
-      <div class="cover-fallback"><span>Re-empowerment · Social Impact</span></div>
+  <!-- 04 Future-casting Training Tools -->
+  <article class="project span-7 reveal">
+    <div class="cover" style="background:linear-gradient(135deg,#1a1a2e,#0f3460);">
+      <span class="num mono">04 / 06</span>
+      <div class="cover-fallback"><span>Future-casting · Strategic Tools</span></div>
       <img
-        src="https://static.wixstatic.com/media/733df4_f8b33ee85dda478a88ef4bee744ef3e7~mv2.jpg/v1/fill/w_900,h_640,al_c,q_85,enc_avif,quality_auto/project2.jpg"
-        alt="Women's empowerment project"
+        src="https://static.wixstatic.com/media/733df4_f59df84375d3463f99bc0437d4991dca~mv2.jpg/v1/fill/w_1200,h_800,al_c,q_85,enc_avif,quality_auto/project1.jpg"
+        alt="Future-casting Training Tools"
         onerror="this.style.display='none'"
         loading="lazy">
+    </div>
+    <div class="meta">
+      <div class="tags"><span>Future Design</span><span>Organization Development</span></div>
+      <span class="year">2023</span>
+    </div>
+    <h3>Strategic instruments for decisions that span decades.</h3>
+    <p>Building and systemizing the tools that help a 150-year-old organization choose where to invest — not for next quarter, but for the next generation.</p>
+  </article>
+
+  <!-- 05 Designing for women re-entering society -->
+  <article class="project span-6 reveal">
+    <div class="cover" style="background:linear-gradient(135deg, #1a0a0a 0%, #3e1a2a 40%, #5e2a3a 100%);">
+      <span class="num mono">05 / 06</span>
+      <div class="cover-fallback"><span>Designing for Women · Strategy</span></div>
     </div>
     <div class="meta">
       <div class="tags"><span>UX</span><span>Interaction</span><span>Strategy</span></div>
       <span class="year">Ongoing</span>
     </div>
-    <h3>Designing for women re-entering society after incarceration</h3>
-    <p>An ongoing project to empower and re-fill self-confidence — so the experience of having choices is no longer something to be afraid of.</p>
-    <div class="credit">Coming soon</div>
+    <h3>Rebuilding the confidence to act.</h3>
+    <p>A collaboration with a US-based NGO to empower women re-entering society — redesigning the experience of having options so it feels like freedom, not fear.</p>
   </article>
 
-  <!-- 03 Tokyo Midtown -->
-  <article class="project span-5 reveal">
-    <div class="cover" style="background:linear-gradient(135deg,#0d1b2a,#233044);">
-      <span class="num mono">03 / 06</span>
-      <div class="cover-fallback"><span>Tokyo Midtown · Christmas Lighting</span></div>
-      <img
-        src="https://static.wixstatic.com/media/733df4_fe2d5a132b7e4814a284e0b7ea2ba482~mv2.jpg/v1/fill/w_900,h_640,al_c,q_85,enc_avif,quality_auto/project3.jpg"
-        alt="Tokyo Midtown Christmas"
-        onerror="this.style.display='none'"
-        loading="lazy">
-    </div>
-    <div class="meta">
-      <div class="tags"><span>Experience Design</span><span>UX</span></div>
-      <span class="year">2019</span>
-    </div>
-    <h3>Tokyo Midtown — Christmas lighting that reached five million</h3>
-    <p>Designing the emotional change of city visitors through contextual and customer experience design. A Christmas show recreating astronomical phenomena at urban scale.</p>
-    <div class="credit">© Tokyo Midtown · Experience Lead</div>
-  </article>
-
-  <!-- 04 Blossom Lounge -->
-  <article class="project span-7 reveal">
-    <div class="cover" style="background:linear-gradient(135deg,#1a2f1a,#2d4a2d);">
-      <span class="num mono">04 / 06</span>
-      <div class="cover-fallback"><span>Blossom Lounge · Service Design</span></div>
-      <img
-        src="https://static.wixstatic.com/media/733df4_c602678c16224be8a77d980647c380d3~mv2.gif"
-        alt="Blossom Lounge"
-        onerror="this.style.display='none'"
-        loading="lazy">
-    </div>
-    <div class="meta">
-      <div class="tags"><span>Service Design</span><span>Experience Design</span></div>
-      <span class="year">2018–2022</span>
-    </div>
-    <h3>Blossom Lounge — rethinking a stakeholder ecosystem for ripple effects</h3>
-    <p>A pop-up outdoor lounge service designed around value exchanges across stakeholders, delivering the best sales figures four years running.</p>
-    <div class="credit">Service Strategy & Design</div>
-  </article>
-
-  <!-- 05 Panasonic -->
+  <!-- 06 Panasonic -->
   <article class="project span-6 reveal">
-    <div class="cover" style="background:linear-gradient(135deg,#1a1a1a,#2e2e2e);">
-      <span class="num mono">05 / 06</span>
+    <div class="cover" style="background:linear-gradient(135deg, #1a1000 0%, #3a2800 40%, #5a4200 100%);">
+      <span class="num mono">06 / 06</span>
       <div class="cover-fallback"><span>Panasonic · Product Development</span></div>
-      <img
-        src="https://static.wixstatic.com/media/733df4_9be68253e37d45a68722faffbc8816ef~mv2.jpg/v1/fill/w_900,h_640,al_c,q_85,enc_avif,quality_auto/project5.jpg"
-        alt="Panasonic product development"
-        onerror="this.style.display='none'"
-        loading="lazy">
     </div>
     <div class="meta">
-      <div class="tags"><span>Design Strategy</span><span>Marketing</span></div>
+      <div class="tags"><span>Product Development</span><span>Marketing</span></div>
       <span class="year">2014–2016</span>
     </div>
-    <h3>Panasonic — developing under constraint, turning weakness into edge</h3>
-    <p>Innovating offerings through differentiation and the combination of unlikely variables. Product marketing and communications management across ten product categories.</p>
-    <div class="credit">© Panasonic</div>
-  </article>
-
-  <!-- 06 Home Depot -->
-  <article class="project span-6 reveal">
-    <div class="cover" style="background:linear-gradient(135deg,#2a1f1a,#3d2e26);">
-      <span class="num mono">06 / 06</span>
-      <div class="cover-fallback"><span>Home Depot · Design Research</span></div>
-      <img
-        src="https://static.wixstatic.com/media/733df4_f06ddbcd58754baba19b8221712a1de5~mv2.jpg/v1/fill/w_900,h_640,al_c,q_85,enc_avif,quality_auto/project6.jpg"
-        alt="Home Depot UX research"
-        onerror="this.style.display='none'"
-        loading="lazy">
-    </div>
-    <div class="meta">
-      <div class="tags"><span>Design Research</span><span>Synthesis</span></div>
-      <span class="year">2022</span>
-    </div>
-    <h3>Home Depot — people, context, and behavior as the starting point</h3>
-    <p>Problem-solving for the user experience of the world's largest home-improvement retailer. Unveiling latent problems and finding clues to solutions through field research.</p>
-    <div class="credit">UX Research Lead</div>
+    <h3>Turning constraint into competitive edge.</h3>
+    <p>When product specs couldn't compete, the game had to change. A design-led reinvention of a vacuum line — using brand collaborations as billboards and design itself as the differentiator.</p>
   </article>
 
 </section>
@@ -398,7 +350,6 @@
     <h2>Selected experiences, products & moments.</h2>
   </div>
   <div class="other-scroll">
-
     <div class="other-card">
       <div class="img" style="background:linear-gradient(135deg,#1a1a1a,#3a3a3a);">
         <div class="fb"><span>Isozaki & Kapoor · Tokyo</span></div>
@@ -408,27 +359,15 @@
       <h4>Inflatable mobile concert hall with Isozaki & Kapoor</h4>
       <p>Global project management for a massive sculptural artwork in Tokyo, aiding earthquake recovery through music and art on a 10-year brand anniversary.</p>
     </div>
-
     <div class="other-card">
       <div class="img" style="background:linear-gradient(135deg,#0d2818,#1a4a2e);">
         <div class="fb"><span>Good Design Award · Installation</span></div>
-        <img src="https://static.wixstatic.com/media/733df4_f06ddbcd58754baba19b8221712a1de5~mv2.jpg/v1/fill/w_760,h_570,al_c,q_85,enc_avif,quality_auto/other2.jpg" alt="Rock garden installation" onerror="this.style.display='none'" loading="lazy">
+        <img src="https://static.wixstatic.com/media/733df4_f06ddbcd58754baba19b8221712a1de5~mv2.jpg/v1/fill/w_760,h_570,al_c,q_85,enc_avif,quality_auto/other2.jpg" alt="Rock garden" onerror="this.style.display='none'" loading="lazy">
       </div>
       <span class="mono">Installation · Brand</span>
       <h4>Light & mist garden — Good Design Award</h4>
       <p>A new seasonal symbol inspired by traditional Japanese rock gardens, redesigning a town's holistic strategy around a single, coherent brand moment.</p>
     </div>
-
-    <div class="other-card">
-      <div class="img" style="background:linear-gradient(135deg,#1a1a2e,#16213e);">
-        <div class="fb" style="align-items:center;justify-content:center;"><span style="font-size:4rem;font-weight:800;letter-spacing:-0.04em;">10</span></div>
-        <img src="https://static.wixstatic.com/media/733df4_d49db33d7b7749c08c978fee087d529e~mv2.jpg/v1/fill/w_760,h_570,al_c,q_85,enc_avif,quality_auto/other3.jpg" alt="Panasonic" onerror="this.style.display='none'" loading="lazy">
-      </div>
-      <span class="mono">Product · Marketing</span>
-      <h4>Product marketing across 10 categories at Panasonic</h4>
-      <p>Product development, communication planning, and category management across ten distinct product lines.</p>
-    </div>
-
     <div class="other-card">
       <div class="img" style="background:var(--accent);">
         <div class="fb" style="align-items:center;justify-content:center;"><span style="font-size:2.5rem;font-weight:300;font-style:italic;">prototypes</span></div>
@@ -437,7 +376,6 @@
       <h4>The lab — making it real, early</h4>
       <p>Sketches, prototypes, and graphic experiments that exist to give the room something to argue with.</p>
     </div>
-
     <div class="other-card">
       <div class="img" style="background:linear-gradient(135deg,#0a0a0a,#1a1a1a);">
         <div class="fb" style="align-items:center;justify-content:center;"><span style="text-align:center;font-size:1.8rem;font-weight:700;letter-spacing:-0.03em;line-height:1.1;">Lucerne<br>Festival</span></div>
@@ -446,7 +384,6 @@
       <h4>Lucerne Festival collaboration</h4>
       <p>Contributing to one of the world's most significant classical music festivals — translating the brand's voice through visual and spatial experience.</p>
     </div>
-
   </div>
 </section>
 
